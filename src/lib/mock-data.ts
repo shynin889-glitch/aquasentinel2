@@ -124,7 +124,7 @@ function buildDetections(): Detection[] {
     const n = 216 - i;
     const fixed = FIXED[i];
     const conf = fixed ? fixed[1] : Math.round(35 + rand() * 64);
-    const type = fixed ? fixed[2] : DEBRIS_TYPES[Math.floor(rand() * DEBRIS_TYPES.length)];
+    const type: DebrisType = fixed ? fixed[2] : DEBRIS_TYPES[Math.floor(rand() * DEBRIS_TYPES.length)]!;
     const secondsBack = fixed ? fixed[3] : 121 + (i - 5) * 27;
     const lat = 26.123456 - i * 0.00021 - rand() * 0.00004;
     const lng = 93.456789 - i * 0.00019 - rand() * 0.00004;
@@ -155,13 +155,12 @@ function buildDetections(): Detection[] {
 export const DETECTIONS: Detection[] = buildDetections();
 
 /** the 5 detections rendered as boxes on the live sonar viewer */
-export const SONAR_DETECTIONS: Detection[] = [
-  { ...DETECTIONS[0], confidence: 87, severity: "high" },
-  { ...DETECTIONS[1], confidence: 96, severity: "high" },
-  { ...DETECTIONS[2], confidence: 61, severity: "medium" },
-  { ...DETECTIONS[3], confidence: 76, severity: "medium" },
-  { ...DETECTIONS[4], confidence: 79, severity: "medium" },
-].map((d, i) => ({ ...d, boundingBox: SONAR_BOXES[i] }));
+export const SONAR_DETECTIONS: Detection[] = [87, 96, 61, 76, 79].map((confidence, i) => ({
+  ...(DETECTIONS[i] as Detection),
+  confidence,
+  severity: severityOf(confidence),
+  boundingBox: SONAR_BOXES[i] as BoundingBox,
+}));
 
 export const SCANS: Scan[] = [
   {
@@ -346,7 +345,7 @@ export function generateDetections(scanId: string, count: number): Detection[] {
   const now = Date.now();
   return Array.from({ length: count }, (_, i) => {
     const conf = Math.round(35 + rand() * 64);
-    const type = DEBRIS_TYPES[Math.floor(rand() * DEBRIS_TYPES.length)];
+    const type: DebrisType = DEBRIS_TYPES[Math.floor(rand() * DEBRIS_TYPES.length)]!;
     return {
       id: `D-${String(count - i).padStart(4, "0")}`,
       scanId,

@@ -111,7 +111,7 @@ function DashboardPage() {
       </div>
 
       <div className="mt-4 grid gap-4 xl:grid-cols-[45fr_55fr]">
-        <section className="panel p-4 sm:p-5">
+        <section className="panel min-w-0 p-4 sm:p-5">
           <h2 className="mb-4 text-base font-medium">
             <span className="text-muted-foreground">1.</span>{" "}
             <span className="text-primary">Upload &amp; Live View</span>
@@ -122,7 +122,7 @@ function DashboardPage() {
           <div className="mt-3 space-y-2">
             <UploadedFileRow
               filename={uploadedName}
-              meta={proc.running ? STAGES[proc.stageIndex] : uploadedAt}
+              meta={proc.running ? (STAGES[proc.stageIndex] ?? "Processing") : uploadedAt}
               progress={proc.running ? proc.progress : 100}
               done={!proc.running}
             />
@@ -148,7 +148,7 @@ function DashboardPage() {
           </div>
         </section>
 
-        <section className="panel p-4 sm:p-5">
+        <section className="panel min-w-0 p-4 sm:p-5">
           <h2 className="mb-4 text-base font-medium">
             <span className="text-muted-foreground">2.</span>{" "}
             <span className="text-primary">Map &amp; Report</span>

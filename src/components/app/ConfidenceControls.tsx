@@ -59,7 +59,7 @@ export function ConfidenceControls({
           min={30}
           max={100}
           step={1}
-          onValueChange={([v]) => onThreshold(v)}
+          onValueChange={([v]) => onThreshold(v ?? 70)}
           aria-label="Confidence threshold"
         />
         <div className="mt-2 flex justify-between text-xs text-muted-foreground">

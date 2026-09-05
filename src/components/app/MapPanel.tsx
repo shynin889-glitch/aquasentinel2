@@ -42,13 +42,14 @@ export function MapPanel({
   const [layers, setLayers] = useState(true);
 
   const clusters: Cluster[] = useMemo(() => {
+    const weights = [0.24, 0.09, 0.16, 0.07, 0.13, 0.11, 0.12, 0.08];
     const groups = CLUSTER_SEEDS.map((seed, i) => {
       const bucket = detections.filter((_, idx) => idx % CLUSTER_SEEDS.length === i);
       return {
         id: `C${i}`,
         x: seed.x,
         y: seed.y,
-        count: bucket.length,
+        count: Math.max(1, Math.round(detections.length * (weights[i] ?? 0.1))),
         minConfidence: seed.conf,
         detectionId: bucket[0]?.id ?? "",
       };
