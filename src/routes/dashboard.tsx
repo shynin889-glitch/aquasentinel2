@@ -122,7 +122,7 @@ function DashboardPage() {
           <div className="mt-3 space-y-2">
             <UploadedFileRow
               filename={uploadedName}
-              meta={proc.running ? STAGES[proc.stageIndex] : uploadedAt}
+              meta={proc.running ? (STAGES[proc.stageIndex] ?? "Processing") : uploadedAt}
               progress={proc.running ? proc.progress : 100}
               done={!proc.running}
             />

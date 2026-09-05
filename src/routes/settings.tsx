@@ -123,8 +123,9 @@ function SettingsPage() {
                 step={1}
                 aria-label="Default confidence threshold"
                 onValueChange={([v]) => {
-                  set({ defaultThreshold: v });
-                  setThreshold(v);
+                  const next = v ?? 70;
+                  set({ defaultThreshold: next });
+                  setThreshold(next);
                 }}
               />
             </div>
@@ -174,7 +175,7 @@ function SettingsPage() {
                 max={18}
                 step={1}
                 aria-label="Default map zoom"
-                onValueChange={([v]) => set({ defaultZoom: v })}
+                onValueChange={([v]) => set({ defaultZoom: v ?? 11 })}
               />
             </div>
           </div>
