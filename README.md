@@ -694,6 +694,9 @@ Demonstrates the application of AI and sensing technologies to environmental mon
 # 🏆 Hackathon Context
 
 AquaSentinel was developed as a solution for a **Smart India Hackathon (SIH)** problem statement focused on detecting marine debris / ghost nets using Side-Scan Sonar and computer vision.
+At this stage, AquaSentinel is presented as a frontend prototype demonstrating the proposed concept, workflow, and user interface. 
+The current version was developed with the assistance of Lovable to rapidly visualize the system.
+The AI/ML detection pipeline, sonar-data processing, geotagging, and backend components are planned for the subsequent development stages.
 
 ### Core Innovation
 
@@ -727,58 +730,10 @@ Review Detection History
 Generate Report
 ```
 
-> Add your project demo video and screenshots here once finalized.
+> https://drive.google.com/file/d/1mpQCnu_rJowE54IusYe0z_2Em2JI99mE/view? usp=sharingt
 
 ---
 
-# 📸 Screenshots
-
-Add screenshots of the following modules:
-
-### Dashboard
-
-```text
-docs/screenshots/dashboard.png
-```
-
-### Upload Scan
-
-```text
-docs/screenshots/upload.png
-```
-
-### Detection Results
-
-```text
-docs/screenshots/detection.png
-```
-
-### Detection History
-
-```text
-docs/screenshots/history.png
-```
-
-### Reports
-
-```text
-docs/screenshots/reports.png
-```
-
----
-
-
-
-
----
-
-# 📜 License
-
-This project is developed for educational, research, and hackathon purposes.
-
-Add an appropriate open-source license if the project is intended for public reuse.
-
----
 
 # ⭐ Acknowledgements
 
@@ -789,12 +744,6 @@ We would like to acknowledge:
 * Open-source computer vision and geospatial projects
 * Side-Scan Sonar technology researchers
 * Contributors and mentors who supported the development of AquaSentinel
-
----
-
-# 📬 Contact
-
-For questions, collaboration, or project-related discussions, please contact the AquaSentinel development team through the repository.
 
 ---
 
