@@ -550,42 +550,7 @@ Actual privacy and security properties depend on the final deployment architectu
 
 ---
 
-# 📁 Project Structure
 
-A possible project structure is:
-
-```text
-AquaSentinel/
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── components/
-│   ├── pages/
-│   └── assets/
-│
-├── backend/
-│   ├── api/
-│   ├── services/
-│   ├── models/
-│   └── utils/
-│
-├── ml/
-│   ├── dataset/
-│   ├── training/
-│   ├── inference/
-│   └── preprocessing/
-│
-├── data/
-│   └── sample/
-│
-├── docs/
-│   ├── architecture/
-│   └── screenshots/
-│
-├── README.md
-└── LICENSE
-```
 
 ---
 
@@ -802,20 +767,8 @@ docs/screenshots/reports.png
 
 ---
 
-# 🤝 Team
 
-### AquaSentinel Team
 
-| Member        | Role                          |
-| ------------- | ----------------------------- |
-| Team Member 1 | Project Lead / Concept        |
-| Team Member 2 | AI/ML & Technical Development |
-| Team Member 3 | Frontend / UI Development     |
-| Team Member 4 | Backend / Integration         |
-| Team Member 5 | Research / Documentation      |
-| Team Member 6 | Testing / Presentation        |
-
-> Replace the role placeholders with your actual team members and responsibilities.
 
 ---
 
