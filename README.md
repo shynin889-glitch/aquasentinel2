@@ -1,1462 +1,852 @@
-# Ocean Guardian
+# 🌊 AquaSentinel
 
-Build a complete, production-quality web application called "AquaSentinel" — an AI-powered marine debris detection and monitoring platform.
+### AI-Powered Side-Scan Sonar Analysis for Detecting Marine Debris & Ghost Nets
 
-IMPORTANT:
+> **AquaSentinel** is an AI-assisted marine monitoring and decision-support system designed to detect abandoned, lost, or discarded fishing gear (ghost nets) and other marine debris from **Side-Scan Sonar (SSS)** imagery.
 
-Use the attached reference image as the primary visual/design reference. Recreate its overall layout, visual hierarchy, spacing, colors, typography, cards, navigation, dashboard structure, map panel, sonar imagery panel, tables, controls, and dark marine-tech aesthetic.
+---
 
-Do NOT make this a static mockup. Build a fully interactive frontend with realistic mock data and working UI interactions throughout.
+## 📌 Overview
 
-==================================================
+Marine ecosystems are increasingly threatened by anthropogenic debris, especially **ghost nets** — abandoned, lost, or discarded fishing nets that continue to trap marine organisms and damage underwater ecosystems.
 
-1. PRODUCT OVERVIEW
+Detecting these objects manually from Side-Scan Sonar data is challenging because sonar imagery often contains:
 
-==================================================
+* Speckle noise
+* Low contrast
+* Seafloor variations
+* Shadows and acoustic artifacts
+* Objects with similar visual characteristics to natural formations
+* Large volumes of sonar data requiring manual inspection
 
-AquaSentinel is an AI-powered underwater/marine debris detection platform used by marine researchers, survey teams, environmental organizations, and ocean-monitoring teams.
+**AquaSentinel** addresses these challenges by combining sonar-image preprocessing, AI-based object detection, geospatial information, and an intuitive monitoring dashboard.
 
-The application allows users to:
+The system is designed with an **offline-first approach**, making it suitable for marine surveys where reliable internet connectivity may not be available.
 
-- Upload sonar scan/image files
+---
 
-- View sonar imagery
+# 🎯 Problem Statement
 
-- Run simulated AI debris detection
+### Background
 
-- See bounding boxes and confidence scores
+Ghost fishing gear is one of the most persistent forms of marine pollution. Once fishing gear is lost or abandoned, it can continue trapping marine organisms and damaging underwater habitats.
 
-- Adjust confidence thresholds
+Side-Scan Sonar provides an effective method for surveying underwater environments. However, manually examining large sonar datasets can be:
 
-- View detections on an interactive map
+* Time-consuming
+* Labor-intensive
+* Difficult to scale
+* Dependent on expert interpretation
+* Vulnerable to inconsistent detection
 
-- Browse detection history
+### Existing Challenge
 
-- Generate/view reports
+Traditional sonar analysis often requires experts to manually inspect sonar scans and identify suspicious objects.
 
-- Export reports as PDF/CSV
+This creates a bottleneck between:
 
-- Manage application settings
+**Sonar Data → Analysis → Detection → Location → Reporting**
 
-- Monitor system status
+### AquaSentinel's Approach
 
-The UI should feel like a professional marine research command center — sophisticated, technical, data-rich, but clean and easy to navigate.
+AquaSentinel aims to automate and simplify this workflow:
 
-==================================================
+**Upload Sonar Data → Preprocess → Detect → Filter → Geotag → Visualize → Report**
 
-2. VISUAL DESIGN
+---
 
-==================================================
+# 🚀 Key Features
 
-Follow the attached reference image closely.
+## 1. 📡 Sonar Data Upload
 
-Overall aesthetic:
+Users can upload sonar survey data for analysis.
 
-- Dark navy / almost-black background
+Supported or planned input formats include:
 
-- Marine/ocean technology aesthetic
+* XTF
+* JSF
+* TIFF
+* Other processed sonar image formats
 
-- Cyan/turquoise as the primary accent
+The system is designed to support integration with real-world Side-Scan Sonar datasets.
 
-- Orange/yellow for medium-confidence detections and warnings
+---
 
-- Red for high-confidence detections
+## 2. 🧹 Sonar Image Preprocessing
 
-- Subtle blue/cyan glows
+Raw sonar imagery may contain noise and inconsistencies that can affect detection.
 
-- Thin borders
+AquaSentinel applies preprocessing techniques such as:
 
-- Rounded cards
+* Contrast enhancement
+* Intensity normalization
+* Noise reduction
+* Histogram-based enhancement
+* Image resizing
+* Feature enhancement
 
-- High information density without feeling cluttered
+These steps help improve the quality of sonar imagery before AI inference.
 
-- Professional scientific/research dashboard
+---
 
-- Modern SaaS interface
+## 3. 🤖 AI-Based Detection
 
-- Minimal gradients, used tastefully
+AquaSentinel uses computer vision techniques to identify potential marine debris and ghost-net signatures in sonar imagery.
 
-- Subtle hover animations
+The planned detection pipeline uses:
 
-- Excellent contrast and readability
+### YOLO-based Object Detection / Segmentation
 
-Suggested colors:
+The model analyzes sonar imagery and identifies regions that may correspond to:
 
-Background:
+* Ghost nets
+* Marine debris
+* Suspicious underwater objects
 
-#030B14
+The detection stage produces bounding boxes or segmentation regions along with confidence scores.
 
-#07131F
+---
 
-#091724
+## 4. 🔇 Noise & False-Positive Filtering
 
-Primary cyan:
+Sonar imagery contains many natural formations that may resemble debris.
 
-#18D9E6
+AquaSentinel therefore incorporates filtering mechanisms to reduce false detections.
 
-#20CFE0
+The system considers:
 
-#0EA5B7
+* Detection confidence
+* Object characteristics
+* Image context
+* Sonar intensity patterns
+* Shadow characteristics
+* Spatial information
 
-High confidence:
+This helps prioritize detections that require human attention.
 
-#EF4444
+---
 
-Medium confidence:
+## 5. 📍 Geotagging
 
-#F59E0B
+Detected objects can be associated with geographical coordinates obtained from survey information.
 
-Low confidence:
+Each detection can contain information such as:
 
-#9CA3AF
+* Latitude
+* Longitude
+* Detection timestamp
+* Confidence score
+* Object category
+* Survey identifier
 
-Text:
+This transforms an image-based detection into a **location-aware marine monitoring record**.
+
+---
+
+## 6. 🗺️ Detection Dashboard
+
+AquaSentinel provides a dashboard for visualizing detected objects.
+
+The dashboard can display:
+
+* Detection locations
+* Detection categories
+* Confidence scores
+* Survey information
+* Detection history
+* Status of identified objects
+
+This allows users to quickly understand where potential marine debris has been detected.
+
+---
+
+## 7. 📊 Detection History
+
+Previous sonar analysis results can be organized into a searchable history.
+
+Users can review:
+
+* Previous surveys
+* Number of detections
+* Detection confidence
+* Locations
+* Analysis status
+* Generated reports
+
+---
+
+## 8. 📄 Automated Reporting
+
+AquaSentinel can generate structured reports containing information about detected marine debris.
+
+A report may include:
+
+* Survey details
+* Detection count
+* Object categories
+* Confidence levels
+* Geographic coordinates
+* Detection images
+* Summary statistics
+
+These reports can support further investigation and marine cleanup planning.
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                  ┌─────────────────────┐
+                  │   Side-Scan Sonar   │
+                  │       Survey        │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                  ┌─────────────────────┐
+                  │    Data Upload      │
+                  │  XTF / JSF / TIFF   │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                  ┌─────────────────────┐
+                  │ Image Preprocessing │
+                  │                     │
+                  │ • Noise Reduction   │
+                  │ • Normalization     │
+                  │ • Contrast Enhance  │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                  ┌─────────────────────┐
+                  │    AI Detection     │
+                  │                     │
+                  │ YOLO-based Model    │
+                  │ Detection/Segment.  │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                  ┌─────────────────────┐
+                  │ Detection Filtering │
+                  │                     │
+                  │ Confidence +        │
+                  │ Context Analysis    │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                  ┌─────────────────────┐
+                  │     Geotagging      │
+                  │                     │
+                  │ Lat / Long / Time   │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+              ┌──────────────────────────────┐
+              │       AquaSentinel           │
+              │       Dashboard              │
+              └──────────────┬───────────────┘
+                             │
+                  ┌──────────┴──────────┐
+                  ▼                     ▼
+          ┌──────────────┐      ┌──────────────┐
+          │ Detection    │      │   Reports    │
+          │ History      │      │ & Analytics  │
+          └──────────────┘      └──────────────┘
+```
 
-#F8FAFC
+---
 
-#CBD5E1
+# 🔄 Processing Pipeline
 
-#94A3B8
+```text
+Raw Sonar Scan
+      ↓
+Data Validation
+      ↓
+Image Extraction
+      ↓
+Noise Reduction
+      ↓
+Contrast Enhancement
+      ↓
+Normalization
+      ↓
+AI Detection
+      ↓
+Confidence Filtering
+      ↓
+Object Localization
+      ↓
+Geotagging
+      ↓
+Visualization
+      ↓
+Report Generation
+```
 
-Borders:
+---
 
-rgba(148,163,184,0.15)
+# 🧠 AI/ML Pipeline
 
-Use CSS variables/design tokens so the entire theme is consistent.
+The AI component follows a computer-vision pipeline.
 
-Typography:
+### Step 1 — Input
 
-Use a modern sans-serif font such as Inter.
+Side-Scan Sonar imagery is provided as input to the processing system.
 
-Headings should be strong and compact.
+### Step 2 — Preprocessing
 
-Data/table text should be highly readable.
+The image is enhanced to improve visibility of relevant sonar signatures.
 
-Use icons from Lucide React or another professional icon library. Do not use random emoji icons.
+### Step 3 — Model Inference
 
-==================================================
+A trained object-detection or segmentation model analyzes the processed image.
 
-3. APPLICATION STRUCTURE
+### Step 4 — Detection
 
-==================================================
+Potential ghost nets or marine debris are identified.
 
-Create the following main routes/pages:
+### Step 5 — Confidence Filtering
 
-/dashboard
+Low-confidence detections can be filtered or flagged for manual review.
 
-/upload
+### Step 6 — Localization
 
-/detections
+Detected objects are associated with survey coordinates.
 
-/reports
+### Step 7 — Visualization
 
-/settings
+Results are displayed through the AquaSentinel dashboard.
 
-Use a persistent left sidebar on desktop.
+---
 
-On mobile:
+# 💻 Technology Stack
 
-- Collapse sidebar into a hamburger menu
+## Frontend
 
-- Preserve all functionality
+* React.js
+* TypeScript
+* HTML5
+* CSS3
+* Tailwind CSS
+* Responsive UI components
 
-- Make dashboard cards stack vertically
+## AI / Machine Learning
 
-- Make tables horizontally scrollable
+* Python
+* YOLO
+* Computer Vision
+* Image Processing
+* OpenCV
+* NumPy
 
-- Make map and sonar viewer responsive
+## Backend
 
-==================================================
+The planned backend architecture can use:
 
-4. LEFT SIDEBAR
+* Python / FastAPI or Flask
+* REST APIs
+* Model inference services
 
-==================================================
+## Data & Geospatial Processing
 
-Create a fixed dark sidebar similar to the reference image.
+* GPS coordinates
+* Geospatial metadata
+* Survey information
+* Spatial visualization
 
-Top:
+## Development Tools
 
-AquaSentinel logo/icon
+* Git
+* GitHub
+* VS Code
+* AI-assisted development tools
 
-"AquaSentinel"
+---
 
-Subtitle:
+# 🖥️ Application Modules
 
-"AI-Powered Marine
+## 📤 Upload Scan
 
-Debris Detection"
+Allows users to upload sonar survey data for processing.
 
-Navigation:
+**Main functions:**
 
-- Dashboard
+* Upload sonar files
+* Validate input
+* Start analysis
+* Display processing status
 
-- Upload Scan
+---
 
-- Detection History
+## 🔍 Detection
 
-- Reports
+Displays AI-generated detections.
 
-- Settings
+**Information displayed:**
 
-Each navigation item should have:
+* Object category
+* Confidence score
+* Detection area
+* Image preview
+* Geographic information
 
-- Lucide icon
+---
 
-- Label
+## 📚 Detection History
 
-- Active state
+Stores previous analysis sessions.
 
-- Hover state
+Users can review previously processed surveys and their detection results.
 
-Active Dashboard state:
+---
 
-cyan left border/accent
+## 📄 Reports
 
-subtle cyan background glow
+Provides summarized information about analyzed surveys.
 
-Bottom of sidebar:
+Reports can contain:
 
-System Status card.
+* Survey metadata
+* Detection statistics
+* Object locations
+* Confidence values
+* Detection snapshots
 
-Show:
+---
 
-Green status indicator
+## ⚙️ Settings
 
-"All Systems Operational"
+Provides configuration options for:
 
-Then:
+* Detection thresholds
+* Processing preferences
+* Display settings
+* Data management
+* System configuration
 
-Version 1.2.3
+---
 
-© 2025 AquaSentinel
+# 🌐 Offline-First Design
 
-On mobile the sidebar should become an overlay/drawer.
+A major design consideration of AquaSentinel is operation in environments with limited or unreliable connectivity.
 
-==================================================
+Marine survey operations may take place far from stable internet infrastructure.
 
-5. TOP HEADER
+Therefore, the architecture is designed around an **offline-first workflow**:
 
-==================================================
+```text
+Sonar Data
+    ↓
+Local Processing
+    ↓
+AI Inference
+    ↓
+Local Results
+    ↓
+Local Dashboard
+    ↓
+Sync / Export When Connectivity Is Available
+```
 
-Main content should have a top header.
+This approach can reduce dependency on continuous cloud connectivity during field operations.
 
-Left:
+---
 
-Page title:
+# 📈 Expected Benefits
 
-"Dashboard"
+AquaSentinel is intended to support marine survey teams by:
 
-Subtitle:
+* Reducing manual sonar inspection effort
+* Accelerating identification of suspicious objects
+* Organizing sonar survey results
+* Providing location-aware detections
+* Supporting structured reporting
+* Helping prioritize areas for further investigation
+* Making sonar analysis more accessible to smaller organizations
 
-"AI-Powered Automated Underwater Detection"
+The actual detection performance will depend on the quality, diversity, and labeling of the training dataset and the deployment environment.
 
-Right:
+---
 
-Search field:
+# 🌊 Target Users
 
-"Search scans, locations, or detections..."
+AquaSentinel can be designed for use by:
 
-Notification bell with a small red notification indicator.
+* Marine conservation organizations
+* Fisheries departments
+* Coastal management agencies
+* Research institutions
+* Marine survey teams
+* Environmental monitoring organizations
+* NGOs working on marine pollution
+* Underwater robotics and sonar operators
 
-User profile section:
+---
 
-Circular avatar
+# 🧪 Model Training
 
-"Dr. Aditi Sharma"
+A future production implementation can use a curated dataset containing sonar images of:
 
-"Marine Researcher"
+* Ghost nets
+* Fishing gear
+* Marine debris
+* Natural seafloor structures
+* Rocks
+* Vegetation
+* Other common sonar artifacts
 
-Dropdown arrow
+### Training Pipeline
 
-Create a functional profile dropdown with:
+```text
+Dataset Collection
+        ↓
+Data Cleaning
+        ↓
+Annotation
+        ↓
+Train / Validation / Test Split
+        ↓
+Data Augmentation
+        ↓
+Model Training
+        ↓
+Validation
+        ↓
+Performance Evaluation
+        ↓
+Model Optimization
+        ↓
+Deployment
+```
 
-- Profile
+---
 
-- Preferences
+# 📊 Model Evaluation
 
-- Sign out
+The AI model can be evaluated using standard computer-vision metrics such as:
 
-Search should actually filter/search across mock scans/detections.
+* Precision
+* Recall
+* F1 Score
+* IoU
+* mAP
 
-==================================================
+Special attention should be given to **false positives**, because natural seafloor structures can sometimes resemble marine debris in sonar imagery.
 
-6. DASHBOARD
+---
 
-==================================================
+# 🔐 Data Privacy & Security
 
-Create a dashboard closely matching the reference.
+AquaSentinel follows a privacy-conscious architecture.
 
-At the top create 3 KPI cards.
+Where possible:
 
-CARD 1:
+* Survey data can be processed locally.
+* Raw sonar files do not need to be uploaded to third-party services.
+* Processing can be performed offline.
+* Exported reports can be controlled by the operator.
 
-Title:
+Actual privacy and security properties depend on the final deployment architecture and data-storage configuration.
 
-"Total Scans Processed"
+---
 
-Value:
+# 📁 Project Structure
 
-"1,247"
+A possible project structure is:
 
-Change:
+```text
+AquaSentinel/
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── components/
+│   ├── pages/
+│   └── assets/
+│
+├── backend/
+│   ├── api/
+│   ├── services/
+│   ├── models/
+│   └── utils/
+│
+├── ml/
+│   ├── dataset/
+│   ├── training/
+│   ├── inference/
+│   └── preprocessing/
+│
+├── data/
+│   └── sample/
+│
+├── docs/
+│   ├── architecture/
+│   └── screenshots/
+│
+├── README.md
+└── LICENSE
+```
 
-"↑ 18% vs yesterday"
+---
 
-Use a cyan scan/document icon.
+# ⚙️ Installation
 
-CARD 2:
+## Prerequisites
 
-Title:
+Make sure the following are installed:
 
-"Debris Detected Today"
+* Node.js
+* npm
+* Python 3.x
+* Git
 
-Value:
+---
 
-"216"
+## Clone the Repository
 
-Change:
+```bash
+git clone https://github.com/YOUR-USERNAME/AquaSentinel.git
+cd AquaSentinel
+```
 
-"↑ 24% vs yesterday"
+---
 
-Use orange detection/target icon.
+## Frontend Setup
 
-CARD 3:
-
-Title:
-
-"Average Confidence Score"
-
-Value:
-
-"78.6%"
-
-Change:
-
-"↑ 5.4% vs yesterday"
-
-Use cyan analytics icon.
-
-Cards should have subtle hover effects and small visual polish.
-
-==================================================
-
-7. DASHBOARD MAIN CONTENT
-
-==================================================
-
-Below KPI cards create a two-column layout.
-
-LEFT:
-
-"1. Upload & Live View"
-
-RIGHT:
-
-"2. Map & Report"
-
-On large desktop screens the left side should be approximately 45% and right side 55%.
-
-==================================================
-
-8. UPLOAD & LIVE VIEW PANEL
-
-==================================================
-
-Create a large upload/dropzone area.
-
-Text:
-
-"Drag & drop sonar image logs here"
-
-"or click to browse"
-
-Supported:
-
-"Supports: .xtf, .jpg, .png (Max 200MB)"
-
-Include upload/cloud icon.
-
-Make the upload area functional.
-
-When a user selects a file:
-
-- Show filename
-
-- Show upload status
-
-- Show progress animation
-
-- Then simulate processing
-
-- Display a success state
-
-- Add the scan to detection history
-
-Accept:
-
-.xtf
-
-.jpg
-
-.jpeg
-
-.png
-
-Do not actually need to run a real AI model. Simulate AI processing realistically.
-
-Example uploaded file:
-
-"survey_042.xtf"
-
-Show:
-
-"Uploaded: May 24, 2025 10:42 AM"
-
-with a green success indicator.
-
-==================================================
-
-9. SONAR VIEWER
-
-==================================================
-
-Below the upload section create a professional sonar-image viewer.
-
-Use the attached reference image's sonar imagery style.
-
-If no real sonar image is available, generate a visually similar sonar placeholder using CSS/canvas or use a suitable local/mock asset.
-
-The viewer should look like an underwater sonar scan:
-
-- dark/brown/golden sonar texture
-
-- two side-by-side sonar channels
-
-- vertical center divider
-
-- noise/grain
-
-- detected debris objects
-
-Overlay AI detection bounding boxes.
-
-Example detections:
-
-- Debris — 87%
-
-- Debris — 96%
-
-- Debris — 61%
-
-- Debris — 76%
-
-- Debris — 79%
-
-Color bounding boxes according to confidence:
-
-High >=80% → red
-
-Medium 50–79% → yellow/orange
-
-Low <50% → gray
-
-Each detection label should be positioned over its bounding box.
-
-Make bounding boxes interactive:
-
-- Hover → highlight
-
-- Click → show detection details
-
-- Selected detection gets stronger glow
-
-Add a vertical toolbar on the left side of the sonar viewer:
-
-- Select
-
-- Pan
-
-- Zoom in
-
-- Zoom out
-
-- Fit view
-
-- Brightness/contrast
-
-Make these controls functional or visually respond to interaction.
-
-==================================================
-
-10. CONFIDENCE THRESHOLD
-
-==================================================
-
-Below sonar viewer create:
-
-"Confidence Threshold"
-
-Information icon.
-
-Show:
-
-30% ---- 50% ---- 70% ---- 90% ---- 100%
-
-Create an actual range slider.
-
-Default:
-
-70%
-
-When slider changes:
-
-- Filter visible detections
-
-- Update detection count
-
-- Update displayed confidence categories
-
-- Update map markers
-
-- Update table
-
-Add toggle:
-
-"Show heatmap"
-
-The heatmap toggle should actually change the map visualization.
-
-==================================================
-
-11. DETECTION SUMMARY
-
-==================================================
-
-At bottom of sonar panel show:
-
-"Detections shown: 216"
-
-Then colored indicators:
-
-High: 143
-
-Medium: 52
-
-Low: 21
-
-These values should dynamically update based on the confidence threshold.
-
-==================================================
-
-12. INTERACTIVE MAP
-
-==================================================
-
-Create a professional dark marine map.
-
-Use Mapbox if possible. If an API key is unavailable, create a high-quality simulated map using a dark map-like visualization rather than leaving an empty box.
-
-The map should contain:
-
-- Dark ocean
-
-- Islands/coastline
-
-- Dotted/dashed survey paths
-
-- Detection markers
-
-- Zoom controls
-
-- Layers button
-
-- Location/target button
-
-Show detection markers using confidence colors:
-
-High → red
-
-Medium → orange
-
-Low → gray
-
-Example markers:
-
-8
-
-3
-
-5
-
-etc.
-
-Include a legend in the upper-right:
-
-Confidence
-
-● High (≥ 80%)
-
-● Medium (50% – 79%)
-
-● Low (< 50%)
-
-Include scale indicator:
-
-2 km
-
-Map interactions:
-
-- Zoom
-
-- Pan
-
-- Click detection marker
-
-- Selected marker opens detection information
-
-- Map updates when confidence threshold changes
-
-- Heatmap toggle changes map visualization
-
-==================================================
-
-13. DETECTION TABLE
-
-==================================================
-
-Below map create:
-
-"Detections (216)"
-
-Add search field:
-
-"Search detections..."
-
-Create a modern dark data table.
-
-Columns:
-
-ID
-
-Timestamp (UTC)
-
-Coordinates
-
-Confidence
-
-Type
-
-Example rows:
-
-D-0216
-
-May 24, 2025 10:42:31
-
-26.123456° N, 93.456789° E
-
-96%
-
-Fishing Net
-
-D-0215
-
-May 24, 2025 10:42:10
-
-26.123210° N, 93.456120° E
-
-92%
-
-Metal Object
-
-D-0214
-
-May 24, 2025 10:41:45
-
-26.122980° N, 93.455780° E
-
-81%
-
-Plastic Container
-
-D-0213
-
-May 24, 2025 10:41:20
-
-26.122650° N, 93.455210° E
-
-76%
-
-Rope
-
-D-0212
-
-May 24, 2025 10:40:55
-
-26.122310° N, 93.454950° E
-
-61%
-
-Unknown
-
-D-0211
-
-May 24, 2025 10:40:30
-
-26.121980° N, 93.454300° E
-
-43%
-
-Wood Fragment
-
-Confidence values should be color-coded.
-
-Rows should be clickable.
-
-Clicking a row should open a right-side detail drawer or modal showing:
-
-- Detection ID
-
-- Type
-
-- Confidence
-
-- Timestamp
-
-- Coordinates
-
-- Sonar crop
-
-- Detection status
-
-- AI explanation
-
-- Location on map
-
-Add pagination or virtual scrolling for larger datasets.
-
-==================================================
-
-14. REPORT DOWNLOAD
-
-==================================================
-
-At the bottom of the map/report section create a large button:
-
-"Download Report (PDF / CSV)"
-
-with document/download icon and dropdown arrow.
-
-Make it functional.
-
-Dropdown options:
-
-- Download PDF Report
-
-- Download CSV Data
-
-- Export JSON
-
-When clicked, generate/download realistic report files using the current mock detection data.
-
-PDF report should include:
-
-AquaSentinel logo/name
-
-Survey information
-
-Summary statistics
-
-Detection counts
-
-Confidence distribution
-
-Detection table
-
-Coordinates
-
-Timestamp
-
-Report generation date
-
-CSV should contain all detection records.
-
-==================================================
-
-15. UPLOAD PAGE
-
-==================================================
-
-Create a dedicated /upload page.
-
-Title:
-
-"Upload Scan"
-
-Subtitle:
-
-"Upload underwater sonar data for AI-powered debris detection."
-
-Include:
-
-- Large drag/drop upload area
-
-- File picker
-
-- Supported file formats
-
-- Upload progress
-
-- Processing animation
-
-- Processing steps
-
-Example processing stages:
-
-1. Uploading scan
-
-2. Validating sonar data
-
-3. Preprocessing imagery
-
-4. Running AI detection
-
-5. Calculating confidence scores
-
-6. Generating report
-
-After processing:
-
-Show:
-
-"Analysis Complete"
-
-Then show:
-
-- Number of detections
-
-- Average confidence
-
-- High/medium/low counts
-
-- Button "View Results"
-
-==================================================
-
-16. DETECTION HISTORY PAGE
-
-==================================================
-
-Create a full detection history page.
-
-Top:
-
-"Detection History"
-
-Subtitle:
-
-"Review and analyze previous underwater surveys."
-
-Add filters:
-
-- Date range
-
-- Location
-
-- Confidence
-
-- Debris type
-
-- Processing status
-
-Add search.
-
-Create a professional table/card list containing previous scans:
-
-- Scan ID
-
-- Filename
-
-- Date
-
-- Location
-
-- Detections
-
-- Avg confidence
-
-- Status
-
-- Actions
-
-Example:
-
-SCAN-042
-
-survey_042.xtf
-
-May 24, 2025
-
-26.12°N, 93.45°E
-
-216 detections
-
-78.6%
-
-Completed
-
-Clicking a scan should open its analysis details.
-
-==================================================
-
-17. REPORTS PAGE
-
-==================================================
-
-Create /reports.
-
-Title:
-
-"Reports"
-
-Show report cards/list.
-
-Each report:
-
-- Survey name
-
-- Generated date
-
-- Detection count
-
-- Confidence
-
-- File type
-
-- Status
-
-Actions:
-
-- View
-
-- Download
-
-- Delete
-
-Add "Generate New Report" button.
-
-Create a report preview modal/page with:
-
-- Survey overview
-
-- Map
-
-- Detection statistics
-
-- Confidence distribution
-
-- Detection table
-
-- Notes
-
-- Export controls
-
-==================================================
-
-18. SETTINGS PAGE
-
-==================================================
-
-Create /settings.
-
-Sections:
-
-Profile
-
-- Name
-
-- Role
-
-- Email
-
-- Avatar
-
-Detection Settings
-
-- Default confidence threshold
-
-- Auto-process uploads
-
-- Show heatmap by default
-
-- Enable sound notifications
-
-Map Settings
-
-- Map style
-
-- Default zoom
-
-- Show survey routes
-
-- Show low-confidence detections
-
-Notifications
-
-- Processing completed
-
-- High-confidence detection
-
-- Report generated
-
-- System alerts
-
-Appearance
-
-- Keep dark marine theme
-
-- Compact mode toggle
-
-All settings should have working UI controls and persist during the current session.
-
-==================================================
-
-19. INTERACTIONS & STATE
-
-==================================================
-
-Use realistic application state.
-
-Implement:
-
-- React state/hooks
-
-- Client-side routing
-
-- Search/filtering
-
-- Upload state
-
-- Detection filtering
-
-- Confidence threshold filtering
-
-- Map marker selection
-
-- Detection detail modal/drawer
-
-- Notifications
-
-- Dropdowns
-
-- Tabs
-
-- Toggles
-
-- Sliders
-
-- Pagination
-
-- Export functionality
-
-Avoid dead buttons.
-
-Every major button should perform an action or clearly indicate unavailable functionality.
-
-Use mock data in a clean data layer so it can later be replaced with a real backend/API.
-
-==================================================
-
-20. AI PROCESSING SIMULATION
-
-==================================================
-
-When a user uploads a scan, simulate an AI pipeline.
-
-Display a processing screen with animated progress.
-
-Example:
-
-0–20% Uploading
-
-20–40% Preprocessing
-
-40–70% Sonar analysis
-
-70–90% Object detection
-
-90–100% Confidence scoring
-
-After completion create randomized but realistic detection results.
-
-Detection categories:
-
-- Fishing Net
-
-- Rope
-
-- Plastic Container
-
-- Metal Object
-
-- Wood Fragment
-
-- Tire
-
-- Unknown Debris
-
-Each detection has:
-
-id
-
-timestamp
-
-latitude
-
-longitude
-
-confidence
-
-type
-
-severity
-
-boundingBox
-
-status
-
-==================================================
-
-21. RESPONSIVE DESIGN
-
-==================================================
-
-The website must be fully responsive.
-
-Desktop:
-
-- Fixed sidebar
-
-- Two-column dashboard
-
-- Large map/sonar panels
-
-Tablet:
-
-- Collapsible sidebar
-
-- Adaptive two-column/one-column layout
-
-Mobile:
-
-- Hamburger navigation
-
-- One-column layout
-
-- KPI cards stacked
-
-- Sonar viewer scroll/zoom
-
-- Map responsive
-
-- Tables horizontally scrollable
-
-- Modals/drawers optimized for mobile
-
-Do not allow content to overflow horizontally.
-
-==================================================
-
-22. MICRO-INTERACTIONS
-
-==================================================
-
-Add subtle polished interactions:
-
-- Card hover elevation/glow
-
-- Cyan focus states
-
-- Smooth page transitions
-
-- Button hover states
-
-- Slider animation
-
-- Map marker pulse
-
-- Upload progress animation
-
-- Processing status animation
-
-- Toast notifications
-
-- Skeleton loading states
-
-- Detection box hover glow
-
-- Sidebar transition
-
-Keep animations professional and restrained.
-
-==================================================
-
-23. ACCESSIBILITY
-
-==================================================
-
-Implement:
-
-- Semantic HTML
-
-- Keyboard navigation
-
-- Visible focus states
-
-- Accessible labels
-
-- ARIA labels where appropriate
-
-- Sufficient color contrast
-
-- Do not rely solely on color to communicate status
-
-==================================================
-
-24. TECHNICAL REQUIREMENTS
-
-==================================================
-
-Use:
-
-- React
-
-- TypeScript
-
-- Tailwind CSS
-
-- shadcn/ui where appropriate
-
-- Lucide icons
-
-- React Router
-
-- Recharts for charts
-
-- Mapbox or another suitable map library if available
-
-- Clean reusable components
-
-Structure components logically.
-
-Suggested components:
-
-AppShell
-
-Sidebar
-
-TopHeader
-
-KpiCard
-
-UploadDropzone
-
-SonarViewer
-
-DetectionBoundingBox
-
-ConfidenceSlider
-
-MapPanel
-
-DetectionTable
-
-DetectionDetailDrawer
-
-ReportDownload
-
-ProcessingProgress
-
-NotificationPanel
-
-ProfileMenu
-
-FilterBar
-
-EmptyState
-
-LoadingState
-
-Toast
-
-Use reusable data types/interfaces for scans and detections.
-
-==================================================
-
-25. CHARTS / ANALYTICS
-
-==================================================
-
-Where appropriate, include subtle analytics visualizations:
-
-- Confidence distribution
-
-- Detection type distribution
-
-- Detections over time
-
-- Scan processing volume
-
-Charts should follow the AquaSentinel dark theme and not overwhelm the interface.
-
-==================================================
-
-26. MOCK DATA
-
-==================================================
-
-Populate the application with enough realistic mock data that every page looks complete on first load.
-
-Use at least:
-
-- 20+ detection records
-
-- 8+ scans
-
-- Multiple locations
-
-- Different debris types
-
-- Different confidence levels
-
-- Different timestamps
-
-The dashboard should initially reproduce the key numbers shown in the reference:
-
-1,247 total scans
-
-216 debris detected today
-
-78.6% average confidence
-
-216 detections
-
-==================================================
-
-27. IMPORTANT VISUAL DETAILS FROM REFERENCE
-
-==================================================
-
-Pay special attention to these elements from the attached reference:
-
-- Very dark navy background
-
-- Cyan AquaSentinel branding
-
-- Left navigation sidebar
-
-- Three large KPI cards across the top
-
-- "1. Upload & Live View" section
-
-- "2. Map & Report" section
-
-- Sonar image viewer with orange/brown underwater imagery
-
-- Detection bounding boxes
-
-- Confidence labels
-
-- Interactive confidence threshold slider
-
-- Dark map with cyan survey route
-
-- Red/orange/gray detection markers
-
-- Detection table
-
-- Large "Download Report (PDF / CSV)" button
-
-- Small system-status card in bottom-left sidebar
-
-- Researcher profile in top-right
-
-- Dense but polished data visualization
-
-- Thin cyan borders and subtle glowing accents
-
-The final UI should look extremely close in spirit and composition to the attached screenshot while being a complete functional application rather than a screenshot recreation.
-
-==================================================
-
-28. QUALITY BAR
-
-==================================================
-
-This should look like a real startup/product that could be shown to:
-
-- Marine researchers
-
-- Government environmental agencies
-
-- Ocean conservation organizations
-
-- Research institutions
-
-- Investors
-
-- Technical stakeholders
-
-Do not make it look like a generic admin dashboard.
-
-Do not use excessive gradients.
-
-Do not use giant text.
-
-Do not use excessive rounded/pill UI.
-
-Do not use generic placeholder sections.
-
-Do not leave pages empty.
-
-Do not create non-functional navigation.
-
-Prioritize:
-
-1. Visual fidelity to the attached reference
-
-2. Professional marine research aesthetic
-
-3. Functional interactions
-
-4. Responsive design
-
-5. Clean reusable architecture
-
-6. Realistic mock data
-
-7. Excellent UX
-
-Build the entire application now, including all routes, components, mock data, interactions, responsive layouts, upload simulation, sonar visualization, map visualization, detection filtering, detail views, report generation, and settings.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://aquasentinel2.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/0624fe88-9d28-4ddd-978c-6eb1bd9b6934).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
+cd frontend
+npm install
 npm run dev
 ```
+
+The development server will then provide a local URL.
+
+---
+
+## AI/Backend Setup
+
+Create a Python virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate it on Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the backend according to the configured API entry point.
+
+---
+
+# 🧑‍💻 Development Workflow
+
+The project follows a modular development approach:
+
+```text
+Frontend
+   ↕
+REST API
+   ↕
+Processing Layer
+   ↕
+AI Model
+   ↕
+Sonar Data
+```
+
+This separation allows the frontend, backend, and AI components to be developed and improved independently.
+
+---
+
+# 🧭 Future Scope
+
+Future versions of AquaSentinel can include:
+
+### Advanced AI Detection
+
+* Improved segmentation models
+* Multi-class marine debris detection
+* Domain-specific sonar models
+* Continuous model improvement
+
+### Real-Time Sonar Integration
+
+Integration with live Side-Scan Sonar feeds for real-time detection.
+
+### Autonomous Marine Vehicles
+
+Integration with:
+
+* Autonomous Underwater Vehicles (AUVs)
+* Remotely Operated Vehicles (ROVs)
+* Unmanned surface vessels
+
+### Advanced Geospatial Analysis
+
+* Interactive marine maps
+* Heatmaps
+* Detection clustering
+* Risk-zone identification
+* Survey route optimization
+
+### Human-in-the-Loop AI
+
+Operators can verify AI detections and provide feedback that can later be used to improve model performance.
+
+### Cloud Synchronization
+
+When connectivity becomes available, locally collected survey results can be synchronized with a central monitoring system.
+
+---
+
+# 🌱 Sustainable Development Goals
+
+AquaSentinel contributes conceptually to the United Nations Sustainable Development Goals, particularly:
+
+### SDG 14 — Life Below Water
+
+Supports efforts to reduce marine pollution and protect marine ecosystems.
+
+### SDG 13 — Climate Action
+
+Supports technology-driven environmental monitoring and conservation efforts.
+
+### SDG 9 — Industry, Innovation and Infrastructure
+
+Demonstrates the application of AI and sensing technologies to environmental monitoring.
+
+---
+
+# 🏆 Hackathon Context
+
+AquaSentinel was developed as a solution for a **Smart India Hackathon (SIH)** problem statement focused on detecting marine debris / ghost nets using Side-Scan Sonar and computer vision.
+
+### Core Innovation
+
+The project combines:
+
+**Side-Scan Sonar + AI Computer Vision + Noise Filtering + Geotagging + Visualization + Reporting**
+
+into a unified workflow.
+
+---
+
+# 🎥 Demo
+
+A demonstration of the AquaSentinel prototype can showcase the following workflow:
+
+```text
+Dashboard
+    ↓
+Upload Sonar Scan
+    ↓
+Start Analysis
+    ↓
+AI Detection
+    ↓
+View Detected Objects
+    ↓
+View Location
+    ↓
+Review Detection History
+    ↓
+Generate Report
+```
+
+> Add your project demo video and screenshots here once finalized.
+
+---
+
+# 📸 Screenshots
+
+Add screenshots of the following modules:
+
+### Dashboard
+
+```text
+docs/screenshots/dashboard.png
+```
+
+### Upload Scan
+
+```text
+docs/screenshots/upload.png
+```
+
+### Detection Results
+
+```text
+docs/screenshots/detection.png
+```
+
+### Detection History
+
+```text
+docs/screenshots/history.png
+```
+
+### Reports
+
+```text
+docs/screenshots/reports.png
+```
+
+---
+
+# 🤝 Team
+
+### AquaSentinel Team
+
+| Member        | Role                          |
+| ------------- | ----------------------------- |
+| Team Member 1 | Project Lead / Concept        |
+| Team Member 2 | AI/ML & Technical Development |
+| Team Member 3 | Frontend / UI Development     |
+| Team Member 4 | Backend / Integration         |
+| Team Member 5 | Research / Documentation      |
+| Team Member 6 | Testing / Presentation        |
+
+> Replace the role placeholders with your actual team members and responsibilities.
+
+---
+
+# 📜 License
+
+This project is developed for educational, research, and hackathon purposes.
+
+Add an appropriate open-source license if the project is intended for public reuse.
+
+---
+
+# ⭐ Acknowledgements
+
+We would like to acknowledge:
+
+* Smart India Hackathon
+* Relevant marine and environmental research communities
+* Open-source computer vision and geospatial projects
+* Side-Scan Sonar technology researchers
+* Contributors and mentors who supported the development of AquaSentinel
+
+---
+
+# 📬 Contact
+
+For questions, collaboration, or project-related discussions, please contact the AquaSentinel development team through the repository.
+
+---
+
+## 🌊 AquaSentinel
+
+### **See the Ocean. Detect the Threat. Protect What Lies Beneath.**
+
+> Turning sonar data into actionable marine intelligence.
